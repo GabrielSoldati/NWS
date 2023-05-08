@@ -7,7 +7,7 @@ import re
 # Checks if range matches format
 def valid_range(range_string):
     ip_format = r'^(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})-(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})$'
-    match = re.match()
+    match = re.match(ip_format, range_string)
 
     if match:
         start_ip, end_ip = match.groups()
@@ -15,7 +15,7 @@ def valid_range(range_string):
             start_ip = ipaddress.IPv4Address(start_ip)
             end_ip = ipaddress.IPv4Address(end_ip)
             return start_ip <= end_ip
-        except ipaddress.AdressValueError:
+        except ipaddress.AddressValueError:
             return False
     else:
         return False
@@ -31,7 +31,7 @@ def get_range():
                 print ("Invalid range. Enter a valid range.") 
 
 # Checks if the device in question is online
-def online_check():
+def online_check(ip_address):
     try: 
         subprocess.check_output(["ping", "-c", "1", ip_address], timeout=2)
         return True
@@ -45,7 +45,14 @@ def scan_ip_range():
     ip_list = []
     live_host = []
 
-    for.... 
+    for ip in ipaddress.summarize_address_range(ipaddress.IPv4Address(start_ip), ipaddress.IPv4Address(end_ip)):
+        ip_str = str(ip)
+        ip_list.append(ip_str)
+
+        if online_check(ip_str):
+            live_host.append(ip_str)
+
+    return ip_list, live_host
 
     
 
