@@ -22,15 +22,3 @@ def detect_service(open_ports):
         if service:
             services.append((port, service))
     return services
-
-
-#test
-def test_detect_service():
-    open_ports = [443, 21, 22, 23, 80]  #asuming open.. just a test
-    services = detect_service(open_ports)
-
-    for port, service in services:
-        print(f"Port {port} is open and running {service} service.")
-
-if __name__ == "__main__":
-    test_detect_service()

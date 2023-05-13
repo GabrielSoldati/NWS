@@ -14,15 +14,19 @@ def network_scan():
     # Get port range
     start_port, end_port = map(int, port_range_text.get().split("-"))
 
+    # Program running indicator
+    program_status.config(text="Scanning in progress... please stand by")
+    window.update()
+
     # Scan the range & detect services
     for ip in live_hosts:
         open_ports = port_scan(ip, start_port, end_port)
         services = detect_service(open_ports)
-        
         results_listbox.insert(tk.END, f"{ip}: Open ports: {open_ports}, Services: {services}")
 
 
-
+    # Indicate scan finished
+    program_status.config(text="Scanning finished.")
 
 
 window = tk.Tk()
@@ -52,11 +56,14 @@ scan_button.pack(pady=10)
 
 # Results listbox
 results_scrollbar = tk.Scrollbar(result_frame)
-results_scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+results_scrollbar.pack(side=tk.BOTTOM, fill=tk.Y)
 results_listbox = tk.Listbox(result_frame, yscrollcommand=results_scrollbar.set)
-results_listbox.pack(side=tk.LEFT, fill=tk.BOTH)
+results_listbox.pack(side=tk.BOTTOM, fill=tk.BOTH)
 results_scrollbar.config(command=results_listbox.yview)
 
+# Status 
+program_status = tk.Label(window, text="")
+program_status.pack(pady=10)
 # Main loop
 
 window.mainloop()

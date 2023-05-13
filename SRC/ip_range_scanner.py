@@ -33,7 +33,7 @@ def get_range():
 # Checks if the device in question is online
 def online_check(ip_address):
     try: 
-        subprocess.check_output(["ping", "-c", "1", ip_address], timeout=5)
+        subprocess.check_output(["ping", "-n", "1", ip_address], timeout=1)
         return True
     except subprocess.CalledProcessError:
         return False
@@ -59,13 +59,7 @@ def scan_ip_range(ip_range: str):
     return ip_list, live_host
 
 
-## test
-if __name__ == "__main__":
-    ip_list, live_hosts = scan_ip_range()
-    print("\nAll IP addresses in the range:")
-    print("\n".join(ip_list))
-    print("\nLive hosts in the range:")
-    print("\n".join(live_hosts))
+
 
     
 
