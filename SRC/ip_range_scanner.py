@@ -41,8 +41,7 @@ def online_check(ip_address):
         return False
 
 # Main function
-def scan_ip_range():
-    ip_range = get_range()
+def scan_ip_range(ip_range: str):
     start_ip, end_ip = ip_range.split("-")
     start_ip_int = int(ipaddress.IPv4Address(start_ip))
     end_ip_int = int(ipaddress.IPv4Address(end_ip))
